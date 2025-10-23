@@ -4,11 +4,11 @@ This document describes the REST API endpoints for managing the warehouse invent
 
 ## Tech Stack
 
-- **Spring Boot 3.5.6**
-- **Spring Data JPA**
-- **H2 In-memory database**
-- **Java 25**
-- **Maven**
+- Spring Boot 3.5.6
+- Spring Data JPA
+- H2 In-memory database
+- Java 25
+- Maven
 
 
 ## Setup & Run
