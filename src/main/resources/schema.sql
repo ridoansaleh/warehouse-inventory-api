@@ -34,3 +34,12 @@ CREATE TABLE stock_levels (
     UNIQUE (variant_id),
     FOREIGN KEY (variant_id) REFERENCES variants(id) ON DELETE CASCADE
 );
+
+-- 4) sales (records every transaction that happens when a smartphone variant is sold)
+CREATE TABLE sales (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    variant_id BIGINT NOT NULL,
+    quantity_sold INT NOT NULL,
+    sale_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (variant_id) REFERENCES variants(id)
+);
