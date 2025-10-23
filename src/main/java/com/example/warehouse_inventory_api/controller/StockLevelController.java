@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/stock")
+@RequestMapping("/api/stock-levels")
 public class StockLevelController {
     private final StockLevelRepository stockRepo;
 
