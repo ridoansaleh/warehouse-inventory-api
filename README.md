@@ -56,18 +56,13 @@ Password: <leave empty>
 | Items | `GET` | `/items` | Get all smartphone items |
 |  | `GET` | `/items/{id}` | Get a specific item by ID |
 |  | `POST` | `/items` | Create a new item |
-|  | `PUT` | `/items/{id}` | Update an existing item |
-|  | `DELETE` | `/items/{id}` | Delete an item |
 | Variants | `GET` | `/variants` | Get all variants |
 |  | `GET` | `/variants/{id}` | Get a specific variant by ID |
 |  | `POST` | `/variants` | Create a new variant |
-|  | `PUT` | `/variants/{id}` | Update a variant |
-|  | `DELETE` | `/variants/{id}` | Delete a variant |
 | Stock Levels | `GET` | `/stock-levels` | Get all stock levels |
-|  | `GET` | `/stock-levels/{id}` | Get stock level for a specific variant |
 |  | `POST` | `/stock-levels` | Add new stock record |
 |  | `PUT` | `/stock-levels/{id}` | Update stock quantity |
-|  | `DELETE` | `/stock-levels/{id}` | Remove stock record |
+| Sales | `POST` | `/sales` | Create a sale request and update stock quantity |
 
 ---
 
@@ -178,5 +173,32 @@ Content-Type: application/json
   "id": 1,
   "variantId": 1,
   "quantity": 45
+}
+```
+
+### 5. Create a new Sales
+**Request**
+```http
+POST /api/sales
+Content-Type: application/json
+```
+
+**Body**
+
+```json
+{
+  "variantId": 1,
+  "quantity": 2
+}
+```
+
+**Response**
+
+```json
+{
+  "message": "Sale recorded successfully.",
+  "variantId": 1,
+  "quantitySold": 2,
+  "remainingStock": 13
 }
 ```
