@@ -35,7 +35,19 @@ cd warehouse-inventory-api
 ## Database
 
 The project uses an H2 in-memory database by default.
-H2 Console is available at: http://localhost:8080/h2-console
+H2 Console is available at: [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
+
+In this project, there are two SQL files used for automatic database setup:
+
+#### `schema.sql`
+- Defines the **database structure** — including tables, columns, and relationships.  
+- When the application starts, Spring Boot automatically executes this file to **create all required tables** in the H2 database.  
+- It ensures the database schema is always consistent with the project’s data model.
+
+#### `data.sql`
+- Contains **initial or sample data** that populates the database after the schema is created.  
+- Useful for seeding data such as default smartphones, variants, or stock levels.  
+- This allows you to test the API immediately without manually inserting records.
 
 #### H2 Connection Settings:
 
