@@ -1,6 +1,7 @@
 # Warehouse Inventory API
 
-This document describes the REST API endpoints for managing the warehouse inventory of smartphones, including items, variants, and stock levels.
+This project provides a RESTful API for managing a smartphone warehouse system.
+It supports creating and managing items, variants, and stock levels, as well as recording sales transactions while ensuring stock accuracy.
 
 ## Tech Stack
 
