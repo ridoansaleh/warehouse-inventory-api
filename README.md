@@ -203,8 +203,10 @@ GET /api/variants/2
 ### 6. Create a new Variant
 **Request**
 ```http
-GET /api/variants/2
+GET /api/variants
 ```
+
+**Body**
 
 ```json
 {
