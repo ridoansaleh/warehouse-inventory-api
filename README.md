@@ -12,7 +12,7 @@ It supports creating and managing items, variants, and stock levels, as well as 
 - Maven
 
 
-## Setup & Run
+## Setup
 
 ### 1. Clone
 
@@ -66,22 +66,22 @@ Password: <leave empty>
 
 | Resource | Method | Endpoint | Description |
 |-----------|---------|-----------|--------------|
-| Items | `GET` | `/items` | Get all smartphone items |
-|  | `GET` | `/items/{id}` | Get a specific item by ID |
-|  | `POST` | `/items` | Create a new item |
-| Variants | `GET` | `/variants` | Get all variants |
-|  | `GET` | `/variants/{id}` | Get a specific variant by ID |
-|  | `POST` | `/variants` | Create a new variant |
-| Stock Levels | `GET` | `/stock-levels` | Get all stock levels |
-|  | `POST` | `/stock-levels` | Add new stock record |
-|  | `PUT` | `/stock-levels/{id}` | Update stock quantity |
-| Sales | `POST` | `/sales` | Create a sale request and update stock quantity |
+| Items | `GET` | [`/items`](#1-get-all-items) | Get all smartphone items |
+|  | `GET` | [`/items/{id}`](#2-get-an-item) | Get a specific item by ID |
+|  | `POST` | [`/items`](#3-create-a-new-item) | Create a new item |
+| Variants | `GET` | [`/variants`](#4-get-all-variants) | Get all variants |
+|  | `GET` | [`/variants/{id}`](#5-get-a-variant) | Get a specific variant by ID |
+|  | `POST` | [`/variants`](#6-create-a-new-variant) | Create a new variant |
+| Stock Levels | `GET` | [`/stock-levels`](#7-get-all-stock-levels) | Get all stock levels |
+|  | `POST` | [`/stock-levels`](#8-create-a-stock-level) | Add new stock record |
+|  | `PUT` | [`/stock-levels/{id}`](#9-update-a-stock-level-quantity) | Update stock quantity |
+| Sales | `POST` | [`/sales`](#10-create-a-new-sale) | Create a sale record and update stock quantity |
 
 ---
 
 ## Example Requests
 
-### 1. Get All Items
+### 1. Get all Items
 **Request**
 ```http
 GET /api/items
@@ -112,8 +112,25 @@ GET /api/items
 ]
 ```
 
+### 2. Get an Item
+**Request**
+```http
+GET /api/items/1
+```
 
-### 2. Create a New Item
+**Response**
+
+```json
+{
+  "id": 1,
+  "name": "iPhone 16",
+  "brand": "Apple",
+  "description": "Apple smartphone with A18 chip"
+}
+```
+
+
+### 3. Create a New Item
 **Request**
 ```http
 POST /api/items
@@ -134,14 +151,15 @@ Content-Type: application/json
 
 ```json
 {
-  "id": 3,
+  "id": 4,
   "name": "Pixel 9",
   "brand": "Google",
   "description": "Google smartphone with Tensor G4"
 }
 ```
 
-### 3. Get All Variants
+
+### 4. Get all Variants
 **Request**
 ```http
 GET /api/variants
@@ -154,17 +172,154 @@ GET /api/variants
   {
     "id": 1,
     "itemId": 1,
-    "name": "iPhone 16 Black 128GB",
+    "name": "iPhone 16 - 128GB Black",
     "sku": "IPH16-BLK-128",
     "attributes": "{\"color\": \"Black\", \"storage\": \"128GB\"}",
-    "price": 1099.00
+    "price": 999.00
   },
-  // other variants  
 ]
 ```
 
 
-### 4. Update Stock Quantity
+### 5. Get a Variant
+**Request**
+```http
+GET /api/variants/2
+```
+
+**Response**
+
+```json
+{
+  "id": 1,
+  "itemId": 1,
+  "name": "iPhone 16 - 256GB Silver",
+  "sku": "IPH16-256-SLV",
+  "attributes": "{\"color\": \"Silver\", \"storage\": \"256GB\"}",
+  "price": 1099.00
+}
+```
+
+### 6. Create a new Variant
+**Request**
+```http
+GET /api/variants/2
+```
+
+```json
+{
+  "name": "New iPhone XYZ Red 128GB",
+  "sku": "NP-RED-128",
+  "attributes": {
+      "color": "Red",
+      "storage": "128GB"
+  },
+  "price": 89.00,
+  "itemId": 1 
+}
+```
+
+**Response**
+
+```json
+{
+  "id": 7,
+  "name": "New iPhone XYZ Red 128GB",
+  "sku": "NP-RED-128",
+  "attributes": "{\"color\":\"Red\",\"storage\":\"128GB\"}",
+  "price": 89.00,
+  "item": {
+      "id": 1,
+      "name": "iPhone 16",
+      "brand": "Apple",
+      "description": "Latest Apple flagship smartphone with A18 chip",
+      "createdAt": "2025-10-24T08:59:30.205322",
+      "updatedAt": "2025-10-24T08:59:30.205322"
+  }
+}
+```
+
+
+### 7. Get all Stock levels
+**Request**
+```http
+GET /api/stock-levels
+```
+
+**Response**
+
+```json
+[
+  {
+    "id": 1,
+    "quantity": 25,
+    "variant": {
+        "id": 1,
+        "name": "iPhone 16 - 128GB Black",
+        "sku": "IPH16-128-BLK",
+        "attributes": "\"{\\\"color\\\": \\\"black\\\", \\\"storage\\\": \\\"128GB\\\"}\"",
+        "price": 999.00,
+        "item": {
+            "id": 1,
+            "name": "iPhone 16",
+            "brand": "Apple",
+            "description": "Latest Apple flagship smartphone with A18 chip",
+            "createdAt": "2025-10-24T08:59:30.205322",
+            "updatedAt": "2025-10-24T08:59:30.205322"
+        }
+    }
+  },
+  {
+    "id": 2,
+    "quantity": 10,
+    "variant": {
+        "id": 2,
+        "name": "iPhone 16 - 256GB Silver",
+        "sku": "IPH16-256-SLV",
+        "attributes": "\"{\\\"color\\\": \\\"silver\\\", \\\"storage\\\": \\\"256GB\\\"}\"",
+        "price": 1099.00,
+        "item": {
+            "id": 1,
+            "name": "iPhone 16",
+            "brand": "Apple",
+            "description": "Latest Apple flagship smartphone with A18 chip",
+            "createdAt": "2025-10-24T08:59:30.205322",
+            "updatedAt": "2025-10-24T08:59:30.205322"
+        }
+    }
+  }
+]
+```
+
+
+### 8. Create a Stock level
+**Request**
+```http
+POST /api/stock-levels
+Content-Type: application/json
+```
+
+**Body**
+
+```json
+{
+  "variantId": 1,
+  "quantity": 7
+}
+```
+
+**Response**
+
+```json
+{
+  "variantId": 1,
+  "newQuantity": 7,
+  "message": "Stock updated successfully"
+}
+```
+
+
+### 9. Update a Stock level Quantity
 **Request**
 ```http
 PUT /api/stock-levels/1
@@ -189,7 +344,7 @@ Content-Type: application/json
 }
 ```
 
-### 5. Create a new Sales
+### 10. Create a new Sale
 **Request**
 ```http
 POST /api/sales
